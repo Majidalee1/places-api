@@ -4,11 +4,13 @@ import Router from 'koa-router'
 import test from './test'
 import file from './file'
 import user from './api/user'
+import client from './api/clients'
 
 const children = [
   { routes: test, prefix: '' },
   { routes: file, prefix: '' },
-  { routes: user, prefix: '/api' }
+  { routes: user, prefix: '/api' },
+  { routes: client, prefix: '/api/v1' }
 ]
 
 export default function routes () {
