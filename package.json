@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "nodemon": "nodemon",
-    "start": "npm run nodemon ./src/app.ts",
+    "start": "ts-node-dev --respawn --transpile-only ./src/app.ts",
     "dev": "npm run nodemon"
   },
   "repository": {

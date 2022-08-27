@@ -26,7 +26,7 @@ async function main(): Promise<void> {
   }
 
   try {
-    const port = config.get<string>("port");
+    const port = process.env.PORT || 80;
     const server = app.listen(port);
     console.info(
       displayColors ? "\x1b[32m%s\x1b[0m" : "%s",
