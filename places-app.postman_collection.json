@@ -58,12 +58,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3300/api/v1/login",
+					"raw": "http://localhost/api/v1/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3300",
 					"path": [
 						"api",
 						"v1",
@@ -182,6 +181,42 @@
 			"response": []
 		},
 		{
+			"name": "create place Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QgdXNlciIsImlkIjoiNjMwOTFjMDcwYmQwYTYyMmFjMzQwMDEwIiwiaWF0IjoxNjYxNTQyMzQ2fQ.Rbj_p_ssEkhmbfbpBgT7k0k2EYOr5RwqmrKYvUbK0vI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomDomainWord}}\",\r\n    \"routeId\":\"630927012b0ac635acf3cc95\",\r\n    \"longitude\":\"{{$randomLongitude}}\",\r\n    \"vehicleId\":\"6314eb3f02eca62f7c61522c\",\r\n    \"clientId\":\"6314e84e4059a70b949d048f\",\r\n    \"driverId\":\"6314e8664059a70b949d0491\",\r\n    \"latitude\":\"{{$randomLatitude}}\",\r\n    \"imgUrl\":\"{{$randomImageUrl}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:80/api/v1/place",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"v1",
+						"place"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get clients",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -283,12 +318,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3300/api/v1/places",
+					"raw": "http://localhost/api/v1/places",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3300",
 					"path": [
 						"api",
 						"v1",
@@ -331,6 +365,35 @@
 					"path": [
 						"image",
 						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create vehicle",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"civic\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/vehicle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vehicle"
 					]
 				}
 			},

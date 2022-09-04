@@ -15,6 +15,10 @@ export default (router: Router) => {
     ctx.body = "pong";
   });
 
+
+
+
+
   router.post("/createUser", async (ctx) => {
     ctx.body = await User.create({
       userName: "test user",
@@ -27,8 +31,8 @@ export default (router: Router) => {
     const payload = {
       DNI: ctx.request.body.DNI,
       password: ctx.request.body.password,
-      clientId: ctx.request.body.clientId,
-      vehicle: ctx.request.body.vehicle,
+      // clientId: ctx.request.body.clientId,
+      // vehicle: ctx.request.body.vehicle,
     };
     const user = await User.findOne({ DNI: payload.DNI });
 
@@ -56,16 +60,16 @@ export default (router: Router) => {
       return;
     }
 
-    const vehicle = await Vehicle.create({
-      name: payload.vehicle,
-      userId: user!._id,
-    });
+    // const vehicle = await Vehicle.create({
+    //   name: payload.vehicle,
+    //   userId: user!._id,
+    // });
 
     // update user with client and vehicleId
-    await User.findByIdAndUpdate(user!._id, {
-      clientId: payload.clientId,
-      vehicleId: vehicle._id,
-    });
+    // await User.findByIdAndUpdate(user!._id, {
+    //   clientId: payload.clientId,
+    //   vehicleId: vehicle._id,
+    // });
 
     const key = process.env.jwtSecret ?? config.get<string>("jwtSecret");
     ctx.body = {
@@ -106,6 +110,9 @@ export default (router: Router) => {
       name: ctx.request.body.name,
       time: ctx.request.body.time,
       route: ctx.request.body.routeId,
+      client:ctx.request.body.clientId,
+      driver:ctx.request.body.driverId,
+      vehicle:ctx.request.body.vehicleId,
       longitude: ctx.request.body.longitude,
       latitude: ctx.request.body.latitude,
       imageUrl: ctx.request.body.imageUrl,
@@ -113,9 +120,23 @@ export default (router: Router) => {
   });
 
   router.get("/places", async (ctx) => {
-    ctx.body = await Places.find({}).populate("route");
+    // places newer one first
+    ctx.body = await Places.find({}).sort({ time: -1 })
+    .populate("route").populate("client").populate("drivers").populate("vehicles");
   });
 
+
+  router.post('/vehicle',async (ctx)=>{
+    ctx.body = await Vehicle.create({
+      name: ctx.request.body.name,
+      description:ctx.request.body.description
+    });
+  });
+
+
+  router.get('vehicles', async (ctx) => {
+    ctx.body = await Vehicle.find({})
+  })
   // get place by id
   router.get("/place/:id", async (ctx) => {
     const id = Number.parseInt(ctx.params.id);

@@ -43,9 +43,16 @@ export interface PlacesSchema extends Document {
 export const PlacesSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  //   client: { type: Schema.Types.ObjectId, ref: "Client" },
+
+// driver
+  driver: { type: Schema.Types.ObjectId, ref: "Drivers" },
+  // vehicle
+  vehicle: { type: Schema.Types.ObjectId, ref: "Vehicles" },
+
   time: { type: Date, default: Date.now },
   route: { type: Schema.Types.ObjectId, ref: "Routes" },
+  client: { type: Schema.Types.ObjectId, ref: "Client" },
+  // vehicle: { type: Schema.Types.ObjectId, ref: "Vehicles" },
   longitude: { type: Number, required: true },
   latitude: { type: Number, required: true },
   imageUrl: { type: String, required: false },
@@ -64,8 +71,8 @@ export const UserSchema = new Schema({
   userName: { type: String, required: true },
   password: { type: String, required: true },
   DNI: { type: String, required: true },
-  clientId: { type: Schema.Types.ObjectId, ref: "Client" },
-  vehicleId: { type: Schema.Types.ObjectId, ref: "Vehicle" },
+  // clientId: { type: Schema.Types.ObjectId, ref: "Client" },
+  // vehicleId: { type: Schema.Types.ObjectId, ref: "Vehicle" },
 }).set("versionKey", false);
 
 export const Driver = model<UserSchema>("Drivers", UserSchema);
@@ -78,7 +85,6 @@ export interface VehicleSchema extends Document {
 
 export const VehicleSchema = new Schema({
   name: { type: String, required: true },
-  driver: { type: Schema.Types.ObjectId, ref: "Drivers" },
 }).set("versionKey", false);
 
 export const Vehicle = model<VehicleSchema>("Vehicles", VehicleSchema);
