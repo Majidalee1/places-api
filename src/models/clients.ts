@@ -35,6 +35,8 @@ export interface PlacesSchema extends Document {
   description: string;
   client: ClientSchema;
   route: RoutesSchema;
+  vehicle: VehicleSchema;
+  driver: UserSchema;
   longitude: number;
   latitude: number;
   imageUrl: string;
@@ -44,7 +46,7 @@ export const PlacesSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
 
-// driver
+  // driver
   driver: { type: Schema.Types.ObjectId, ref: "Drivers" },
   // vehicle
   vehicle: { type: Schema.Types.ObjectId, ref: "Vehicles" },
