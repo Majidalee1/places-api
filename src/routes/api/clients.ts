@@ -78,6 +78,55 @@ export default (router: Router) => {
     };
   });
 
+
+  router.post("/admin/login", async (ctx) => {
+    const payload = {
+      userName: ctx.request.body.email,
+      password: ctx.request.body.password,
+      // clientId: ctx.request.body.clientId,
+      // vehicle: ctx.request.body.vehicle,
+    };
+    const user = await User.findOne({ userName: payload.userName });
+
+    // check if user exists
+    if (!user) {
+      ctx.status = 401;
+      ctx.body = {
+        status: {
+          code: 1001,
+          message: "User not found",
+        },
+      };
+      return;
+    }
+    // check if password is correct
+
+    if (user.password !== payload.password) {
+      ctx.status = 401;
+      ctx.body = {
+        status: {
+          code: 1002,
+          message: "Password is incorrect",
+        },
+      };
+      return;
+    }
+
+
+    const key = process.env.jwtSecret ?? config.get<string>("jwtSecret");
+    ctx.body = {
+      user: {
+        id: user._id,
+        username: user.userName,
+        token: jwt.sign({ username: user.userName, id: user._id }, key),
+        DNI: user.DNI,
+      },
+    };
+  })
+
+
+
+
   router.post("/client", async (ctx) => {
     ctx.body = await Client.create({
       name: ctx.request.body.name,
